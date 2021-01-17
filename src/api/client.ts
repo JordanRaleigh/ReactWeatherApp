@@ -17,6 +17,7 @@ export interface WeatherEntry {
   weather: {
     main: string;
     description: string;
+    icon: string;
   }[];
   wind: { speed: number };
 }
@@ -30,9 +31,7 @@ class Client {
       const res = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=imperial&appid=${key}`
       );
-      console.log('I want jordan to see this data', res)
       return res.data as WeatherEntry;
-
     } catch (error) {
       if(error) {
         errorCallback('invalid zipcode')

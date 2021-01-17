@@ -1,19 +1,18 @@
 import Header from './Header';
-import Layout from './Layout';
 import Weather from './Weather';
 import Client, { WeatherEntry } from '../api/client';
 import React, { useState } from 'react';
-import WeatherSVG from './svg/weather-artwork-svg';
 
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+//HomePage is the parent component to Header and Weather.
 
 export default function HomePage() {
+  //setting state for current weather as well as any error messages
   const [currentWeather, setcurrentWeather] = useState<null | WeatherEntry>(
     null
   );
-
   const [errorMessage, seterrorMessage] = useState('');
 
+  //fetchWeather will be called once we input a zip code to fetch from the api and store the response as currentWeather. If it returns an error from an invalid zipcode, we will store the error to display.
   const fetchWeather = async (zipCode: number, isUpdate?: boolean) => {
     let updatedWeather = await Client.getWeatherByZipCode(
       zipCode,
@@ -21,7 +20,7 @@ export default function HomePage() {
         seterrorMessage(e);
       }
     );
-    if (!updatedWeather) return console.log('erro invalid zipcode');
+    if (!updatedWeather) return console.log('error invalid zipcode');
     if (!isUpdate) seterrorMessage('');
     setcurrentWeather({ ...updatedWeather, zipCode: zipCode });
 
@@ -34,25 +33,19 @@ export default function HomePage() {
     return updatedWeather;
   };
 
+  //rendering child components Header and Weather if currentWeather exists
   return (
-    <div className="container ">
-      <div className="card">
-        <div className="row align-items-center justify-content-center ">
-          <div className="col-md-4">
-            <Header fetchWeather={fetchWeather} errorMes={errorMessage} />
-          </div>
-        </div>
-        <div className="row align-items-center justify-content-center">
-          {currentWeather ? (
-            <Weather
-              currentWeather={currentWeather}
-              fetchWeather={fetchWeather}
-            />
-          ) : (
-            <WeatherSVG />
-          )}
-        </div>
-      </div>
+    <div className="container d-flex flex-column justify-content-center ">
+      <Header
+        className="align-items-center d-flex flex-column justify-content-center"
+        fetchWeather={fetchWeather}
+        errorMes={errorMessage}
+      />
+      {currentWeather ? (
+        <Weather currentWeather={currentWeather} fetchWeather={fetchWeather} />
+      ) : (
+        ''
+      )}
     </div>
   );
 }
