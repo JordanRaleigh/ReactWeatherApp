@@ -33,7 +33,7 @@ $ npm run build
 
 ## Run the app in Docker
 
-`docker build . -t "image name"`
+```docker build . -t "image name"```
 `docker image ls`
 `docker run "image name"`
 In new terminal
