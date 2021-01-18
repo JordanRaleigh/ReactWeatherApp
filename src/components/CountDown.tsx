@@ -12,18 +12,18 @@ const CountDown: React.FC<{ updateWeather: () => void }> = ({
   updateWeather,
 }) => {
   //setting state to 10 seconds
-  const [seconds, setseconds] = useState(10);
+  const [seconds, setSeconds] = useState(10);
 
   //setTimeout counts down every second and once it hits 0, calls updateWeather to refresh the api call and data
   useEffect(() => {
     if (seconds > 0) {
       setTimeout(() => {
         let updatedSeconds = seconds - 1;
-        setseconds(updatedSeconds);
+        setSeconds(updatedSeconds);
       }, 1000);
     } else {
       updateWeather();
-      setseconds(10);
+      setSeconds(10);
     }
   }, [seconds]);
 

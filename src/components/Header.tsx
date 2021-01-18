@@ -3,7 +3,7 @@ import Client from '../api/client';
 
 interface PropsEntry {
   fetchWeather: (zipCode: number) => void;
-  errorMes?: string;
+  errorMessage?: string;
   className?: string;
 }
 
@@ -36,11 +36,11 @@ const Header = (props: PropsEntry) => {
           if (e.key === 'Enter') handleSubmission();
         }}
       />
-      <div className={'alert alert-danger ' + (props.errorMes ? '' : 'd-none')}>
-        {props.errorMes}
-      </div>
+      {props.errorMessage && (
+        <div className="alert alert-danger ">{props.errorMessage}</div>
+      )}
       <button className="btn btn-primary m-2" onClick={handleSubmission}>
-        submit
+        Submit
       </button>
       <button
         className="btn btn-link"

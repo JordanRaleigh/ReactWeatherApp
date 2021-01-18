@@ -12,45 +12,44 @@ interface PropsEntry {
 
 const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
   //Initially showing only important weather details and can toggle more advanced details.
-  const [moreDetailsEnabled, setMoreDetailsenabled] = useState(false);
+  const [moreDetailsEnabled, setMoreDetailsEnabled] = useState(false);
+  const { main, name, weather, zipCode } = props.currentWeather;
 
   //rendering important weather data and passing the fetchWeather prop down to CountDown so we can refresh. Also rendering a button to display advanced weather details on command.
+
   return (
     <div className="row w-75 m-auto justify-content-center ">
       <div className="col-md-6 text-center">
         <h2>
-          In{' '}
-          <span className="text-underline display-4">
-            {props.currentWeather.name}
-          </span>
-          , it is
+          In <span className="text-underline display-4">{name}</span>, it is
         </h2>
         <div
           className="display-4"
           style={{
-            color: props.currentWeather.main.temp > 75 ? '#FA6B6E' : '#84B4FE',
+            color: main.temp > 75 ? '#FA6B6E' : '#84B4FE',
           }}
         >
-          {parseInt(props.currentWeather.main.temp.toString())}&deg; F
+          {Math.round(main.temp)}&deg; F
         </div>
         <img
-          src={`http://openweathermap.org/img/wn/${props.currentWeather.weather[0].icon}@4x.png`}
+          src={`http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`}
+          alt="current-weather-icon"
         ></img>
       </div>
       <div className="col-md-6 flex-column text-center">
         <div className="weather-tag">
           <p>Feels Like</p>
-          <p className="">{props.currentWeather.main.feels_like} &deg;F</p>
+          <p className="">{main.feels_like} &deg;F</p>
         </div>
         <div className="weather-tag">
           <p>High</p>
-          <p>{props.currentWeather.main.temp_max} &deg;F</p>
+          <p>{main.temp_max} &deg;F</p>
         </div>
         <div className="weather-tag">
           <p>Low</p>
-          <p>{props.currentWeather.main.temp_min} &deg;F</p>
+          <p>{main.temp_min} &deg;F</p>
         </div>
-        {props.currentWeather.weather.map((item, index) => {
+        {weather.map((item, index) => {
           return (
             <div className="weather-tag" key={index}>
               <p>
@@ -64,23 +63,21 @@ const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
           );
         })}
 
-        {moreDetailsEnabled ? (
+        {moreDetailsEnabled && (
           <AdvancedWeather currentWeather={props.currentWeather} />
-        ) : (
-          ''
         )}
         <button
           className="btn btn-link"
           onClick={() => {
-            setMoreDetailsenabled((moreDetailsEnabled) => !moreDetailsEnabled);
+            setMoreDetailsEnabled((moreDetailsEnabled) => !moreDetailsEnabled);
           }}
         >
-          {moreDetailsEnabled ? 'less' : 'more'} details
+          {moreDetailsEnabled ? 'Less' : 'More'} Details
         </button>
       </div>
       <CountDown
         updateWeather={() => {
-          props.fetchWeather(props.currentWeather.zipCode);
+          props.fetchWeather(zipCode);
         }}
       />
     </div>
