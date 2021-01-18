@@ -17,7 +17,7 @@ export default function HomePage() {
   const fetchWeather = async (zipCode: number) => {
     let updatedWeather = await Client.getWeatherByZipCode(zipCode);
     if (!updatedWeather) {
-      return setErrorMessage('Could not get weather from zipcode');
+      return setErrorMessage('Could not get weather from ZIP code');
     }
     // since we successfully got data reset the error msg
     setErrorMessage('');
