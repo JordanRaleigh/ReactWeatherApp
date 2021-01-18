@@ -17,9 +17,9 @@ Within the Client component I added a new API freegeoip.app to pull a users loca
 
 ## Getting Started
 
-$ git clone https://github.com/JordanRaleigh/TandemChallenge.git
+$ git clone https://github.com/JordanRaleigh/ReactWeatherApp.git
 
-$ cd TandemChallenge
+$ cd ReactWeatherApp
 
 $ npm install
 
