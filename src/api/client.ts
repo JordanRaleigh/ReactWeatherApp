@@ -39,6 +39,8 @@ class Client {
       }
     }
   }
+
+  //API to get client location (zipcode) by IP address
   async getCurrentLocation(
     success: (zip: string) => void,
     errorCb: (message: string) => void

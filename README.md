@@ -1,89 +1,52 @@
-# Weather App
+# Overview
 
-Homework exercise to showcase front end skills.
+Welcome to my minimalist Weather App! This application was built utilizing TypeScript and React Hooks.
 
-![screenshot](./public/weather-screenshot.png)
+A user is able to input their ZIP code or click "Use Current Location" to pull local data by location. To see more advanced weather details, click More Details on the bottom of the page. This app will autoupdate every 10 seconds to ensure the most accurate data is being displayed to a user.
 
-## The Goal
+# Screenshots of app
 
-We already have a basic structure in place: JSX, CSS, and an api client to get current weather data. Now bring it to life using React! Create a weather app that does the following:
+![screenshot](./public/weather-app-start.png)
+![screenshot](./public/weather-app-basic.png)
+![screenshot](./public/weather-app-advanced.png)
 
-- Displays the current weather for a given zip code using the **OpenWeatherMap** API [https://openweathermap.org/current](https://openweathermap.org/current)
-- Updates the weather data every 10 seconds (with a ticking countdown clock until the next refresh)
+## Changes Made
 
-Note that the existing code is an aid, but don't let it constrain you. Feel free to add new components, remove existing ones, and restructure things as you see fit. Also feel free to change any and all CSS to acheive the look you want and add any functionality that you deem valuable.
+From the initial file, I connected all components using React and made components functional.
+Within the Client component I added a new API freegeoip.app to pull a users location data based on their IP address. Homepage is our parent component that stores the current weather state as well as any error messages we receive and need to display. In Header, I added a ZIP code state as well as more functionality on the submit button to either be triggered by the enter key or clicking the button. Here I also added the error popup if something goes wrong such as inputting an invalid ZIP code. Here I also added the button to Get Current Location using the added API. Within Weather component, I am rendering the weather data as well as allowing the option to show more details. Here we also have our CountDown child which keeps track of seconds using state and will countdown until 0 where it will refresh the data with the current ZIP code. I've also included a Dockerfile with instructions on how to run this using Docker. Thanks for checking out my app and my code!
 
-- From a TECHNICAL perspective, we're looking for a effective, efficient, easy-to-reason-about app that we'd feel comfortable putting into production.
-- From a PRODUCT perspective, we want the app to be intuitive, attractive and resillient to errors of any kind.
+## Getting Started
 
-## The Weather Data
+$ git clone https://github.com/JordanRaleigh/TandemChallenge.git
 
-Note that there is some rate limiting and account monitoring, so if you accidentally call the API excessively (for example, in a loop) you may get blocked / banned and require a new account. Reach out if this happens, and we'll unblock you.
+$ cd TandemChallenge
 
-Example API Response Body:
+$ npm install
 
-```
-{
-    "base": "stations",
-    "clouds": {
-        "all": 90
-    },
-    "cod": 200,
-    "coord": {
-        "lat": 36.1504,
-        "lon": -86.7916
-    },
-    "dt": 1610367250,
-    "id": 0,
-    "main": {
-        "feels_like": 21.09,
-        "humidity": 74,
-        "pressure": 1026,
-        "temp": 29.73,
-        "temp_max": 30.2,
-        "temp_min": 28.99
-    },
-    "name": "Nashville",
-    "sys": {
-        "country": "US",
-        "id": 4609,
-        "sunrise": 1610369886,
-        "sunset": 1610405514,
-        "type": 1
-    },
-    "timezone": -21600,
-    "visibility": 10000,
-    "weather": [
-        {
-            "description": "overcast clouds",
-            "icon": "04n",
-            "id": 804,
-            "main": "Clouds"
-        }
-    ],
-    "wind": {
-        "deg": 10,
-        "speed": 6.91
-    }
-}
-```
+$ npm start
 
-## How to Submit
+Open http://localhost:9001 to view it in the browser.
 
-- Replace this README with one that includes:
-  - a screenshot of the final product
-  - a brief written description of your changes
-  - instructions to run locally
-  - bonus points for also providing instructions to run a dockerized production build
-- Host a Git repo on either Github or Gitlab for the project. This should be a private repo to avoid exposing the API key.
-- Give your reviewer at Ternary access to the repo (email them to ask for their applicable username when ready).
+## Run the app in prod
 
-## Run the app locally
+$ npm run build
 
-`npm install`
+## Run the app in Docker
 
+`docker build . -t "image name"`
+`docker image ls`
+`docker run "image name"`
+In new terminal
+`docker ps`
+`docker exec -it "CONTAINER ID" sh`
 `npm start`
 
-Runs the app in the development mode.
-Open [http://localhost:9001](http://localhost:9001) to view it in the browser.
-# ReactWeatherApp
+# Parking Lot
+
+I would have loved to implement the following to my app given more time
+
+Testing
+
+- Add Mocha and Chai testing frameworks
+- Build out unit testing for all functions
+- Build integration testing on each broken out component
