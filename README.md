@@ -43,6 +43,7 @@ I've also included a `Dockerfile` with instructions on how to run using Docker. 
 
 ## Getting Started
 
+
 ```terminal
 git clone https://github.com/JordanRaleigh/ReactWeatherApp.git
 cd ReactWeatherApp
@@ -60,6 +61,7 @@ Open http://localhost:9001 to view it in the browser.
 
 ## Run the app in Docker
 
+
 ```
 docker build . -t "image name"
 docker image ls
@@ -75,6 +77,7 @@ npm start
 ```
 
 NOTE: replace `"CONTAINER ID"` with the respective container id
+
 
 # Parking Lot
 
