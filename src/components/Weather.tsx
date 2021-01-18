@@ -3,11 +3,6 @@ import { WeatherEntry } from '../api/client';
 import { useState } from 'react';
 import AdvancedWeather from './AdvancedWeather';
 
-// type FetchWeatherType = (
-//   zipCode: number,
-//   isUpdate?: boolean | undefined
-// ) => void;
-
 interface PropsEntry {
   fetchWeather: (zipCode: number, isUpdate?: boolean) => void;
   currentWeather: WeatherEntry;
@@ -55,14 +50,14 @@ const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
           <p>Low</p>
           <p>{props.currentWeather.main.temp_min} &deg;F</p>
         </div>
-        {props.currentWeather.weather.map((item) => {
+        {props.currentWeather.weather.map((item, index) => {
           return (
-            <div className="weather-tag">
+            <div className="weather-tag" key={index}>
               <p>
-                {item.main}{' '}
+                {item.main}
                 <img
                   src={`http://openweathermap.org/img/wn/${item.icon}.png`}
-                ></img>{' '}
+                ></img>
               </p>
               <p className="">{item.description}</p>
             </div>
@@ -85,7 +80,7 @@ const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
       </div>
       <CountDown
         updateWeather={() => {
-          props.fetchWeather(props.currentWeather.zipCode, true);
+          props.fetchWeather(props.currentWeather.zipCode);
         }}
       />
     </div>

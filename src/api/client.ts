@@ -26,7 +26,7 @@ export interface WeatherEntry {
 const key = "55019652a29de8dae744a7a05b11b581";
 
 class Client {
-  async getWeatherByZipCode(zipCode: number, errorCallback: (e: string)=> void) {
+  async getWeatherByZipCode(zipCode: number) {
     try {
       const res = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=imperial&appid=${key}`
@@ -34,10 +34,27 @@ class Client {
       return res.data as WeatherEntry;
     } catch (error) {
       if(error) {
-        errorCallback('invalid zipcode')
-        return null }
+        console.log("error with getWeatherByZipCode API")
+        return null
+      }
     }
-
+  }
+  async getCurrentLocation(
+    success: (zip: string) => void,
+    errorCb: (message: string) => void
+  ) {
+    try {
+      const res = await axios.get(`https://freegeoip.app/json/`);
+      if (res.data.zip_code){
+        console.log(res)
+        console.log(res.data.zip_code)
+        return success(res.data.zip_code);
+      } else {
+        return errorCb("could not get your location (feature only works in the US)");
+      }
+    } catch (error) {
+      errorCb("error in getCurrentLocation")
+    }
   }
 }
 

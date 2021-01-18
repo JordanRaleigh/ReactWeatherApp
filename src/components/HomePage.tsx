@@ -10,24 +10,21 @@ export default function HomePage() {
   const [currentWeather, setcurrentWeather] = useState<null | WeatherEntry>(
     null
   );
+  //using the state errorMessage to store any potential error messages
   const [errorMessage, seterrorMessage] = useState('');
 
-  //fetchWeather will be called once we input a zip code to fetch from the api and store the response as currentWeather. If it returns an error from an invalid zipcode, we will store the error to display.
-  const fetchWeather = async (zipCode: number, isUpdate?: boolean) => {
-    let updatedWeather = await Client.getWeatherByZipCode(
-      zipCode,
-      (e: string) => {
-        seterrorMessage(e);
-      }
-    );
-    if (!updatedWeather) return console.log('error invalid zipcode');
-    if (!isUpdate) seterrorMessage('');
+  //fetchWeather will fetch weather data from the api and set the currentWeather state. If it returns an error, we will set errorMessage.
+  const fetchWeather = async (zipCode: number) => {
+    let updatedWeather = await Client.getWeatherByZipCode(zipCode);
+    if (!updatedWeather) {
+      return seterrorMessage('Could not get weather from zipcode');
+    }
+    // since we successfully got data reset the error msg
+    seterrorMessage('');
     setcurrentWeather({ ...updatedWeather, zipCode: zipCode });
 
     console.log(
-      updatedWeather
-        ? 'The 🌤 API returned a WeatherEntry with data : '
-        : 'invalid zip code',
+      'The 🌤 API returned a WeatherEntry with data : ',
       updatedWeather
     );
     return updatedWeather;
