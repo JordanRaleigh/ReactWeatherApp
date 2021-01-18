@@ -39,15 +39,15 @@ const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
       <div className="col-md-6 flex-column text-center">
         <div className="weather-tag">
           <p>Feels Like</p>
-          <p className="">{main.feels_like} &deg;F</p>
+          <p className="">{Math.round(main.feels_like)} &deg;F</p>
         </div>
         <div className="weather-tag">
           <p>High</p>
-          <p>{main.temp_max} &deg;F</p>
+          <p>{Math.round(main.temp_max)} &deg;F</p>
         </div>
         <div className="weather-tag">
           <p>Low</p>
-          <p>{main.temp_min} &deg;F</p>
+          <p>{Math.round(main.temp_min)} &deg;F</p>
         </div>
         {weather.map((item, index) => {
           return (
