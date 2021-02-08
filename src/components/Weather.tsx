@@ -4,16 +4,20 @@ import { useState } from 'react';
 import AdvancedWeather from './AdvancedWeather';
 
 interface PropsEntry {
-  fetchWeather: (zipCode: number, isUpdate?: boolean) => void;
+  fetchWeather: (
+    zipCode: number,
+    unit: string,
+    isUpdate?: boolean
+  ) => Promise<void>;
   currentWeather: WeatherEntry;
 }
 
 //Weather will use our currentWeather to display the current weather in a certain zip code. The child component CountDown is rendering here.
 
-const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
+const Weather: React.FC<PropsEntry> = (props) => {
   //Initially showing only important weather details and can toggle more advanced details.
   const [moreDetailsEnabled, setMoreDetailsEnabled] = useState(false);
-  const { main, name, weather, zipCode } = props.currentWeather;
+  const { main, name, weather, zipCode, unit } = props.currentWeather;
 
   //rendering important weather data and passing the fetchWeather prop down to CountDown so we can refresh. Also rendering a button to display advanced weather details on command.
 
@@ -77,7 +81,7 @@ const Weather: React.FC<PropsEntry> = (props: PropsEntry) => {
       </div>
       <CountDown
         updateWeather={() => {
-          props.fetchWeather(zipCode);
+          props.fetchWeather(zipCode, unit);
         }}
       />
     </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 
 // NOTE: This includes a subset of the full response. Feel free to add more keys that you find valuable
 export interface WeatherEntry {
+  unit: string;
   zipCode: number;
   clouds: { all: number };
   dt: number;
@@ -23,13 +24,13 @@ export interface WeatherEntry {
 }
 
 // NOTE: API Docs can be found here: https://openweathermap.org/current
-const key = "55019652a29de8dae744a7a05b11b581";
+const key = "cce044b93d1a141d6465a6314b631380";
 
 class Client {
-  async getWeatherByZipCode(zipCode: number) {
+  async getWeatherByZipCode(zipCode: number, unit: string) {
     try {
       const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=imperial&appid=${key}`
+        `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=${unit}&appid=${key}`
       );
       return res.data as WeatherEntry;
     } catch (error) {
