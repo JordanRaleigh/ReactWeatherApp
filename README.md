@@ -1,6 +1,6 @@
 # Overview
 
-Welcome to my Ternary code challenge Weather App built utilizing TypeScript and React.
+Welcome to my Weather App built utilizing TypeScript and React.
 
 [View Demo Site](https://jordan-weather-app.netlify.app/)
 
