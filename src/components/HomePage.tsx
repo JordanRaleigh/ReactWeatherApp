@@ -14,20 +14,19 @@ export default function HomePage() {
   const [errorMessage, setErrorMessage] = useState('');
 
   //fetchWeather will fetch weather data from the api and set the currentWeather state. If it returns an error, we will set errorMessage.
-  const fetchWeather = async (zipCode: number) => {
-    let updatedWeather = await Client.getWeatherByZipCode(zipCode);
+  const fetchWeather = async (zipCode: number, unit: string) => {
+    let updatedWeather = await Client.getWeatherByZipCode(zipCode, unit);
     if (!updatedWeather) {
       return setErrorMessage('Could not get weather from ZIP code');
     }
     // since we successfully got data reset the error msg
     setErrorMessage('');
-    setCurrentWeather({ ...updatedWeather, zipCode: zipCode });
+    setCurrentWeather({ ...updatedWeather, zipCode: zipCode, unit: unit });
 
     console.log(
       'The 🌤 API returned a WeatherEntry with data : ',
       updatedWeather
     );
-    return updatedWeather;
   };
 
   //rendering child components Header and Weather if currentWeather exists

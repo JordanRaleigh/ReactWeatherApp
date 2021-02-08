@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Client from '../api/client';
 
 interface PropsEntry {
-  fetchWeather: (zipCode: number) => void;
+  fetchWeather: (zipCode: number, unit: string) => void;
   errorMessage?: string;
   className?: string;
 }
@@ -12,11 +12,11 @@ interface PropsEntry {
 const Header = (props: PropsEntry) => {
   // storing zipCode that the user inputs
   const [zipInput, setZipInput] = useState('');
-
+  const [unit, setUnit] = useState('Imperial');
   //once submitted by pressing submit button or hitting enter, this will call fetchWeather with our zipInput
   const handleSubmission = () => {
     console.log('fetching from zip code : ', zipInput);
-    props.fetchWeather(parseInt(zipInput));
+    props.fetchWeather(parseInt(zipInput), unit);
   };
 
   //rendering the input, allowing you to submit on the enter key or by clicking the submit button. If you submit an invalid zipCode, an error wil be displayed.
@@ -39,6 +39,28 @@ const Header = (props: PropsEntry) => {
       {props.errorMessage && (
         <div className="alert alert-danger ">{props.errorMessage}</div>
       )}
+      <input
+        type="radio"
+        id="Imperial"
+        value={'Imperial'}
+        checked={unit === 'Imperial'}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+          setUnit(e.currentTarget.value);
+        }}
+      />
+      <label htmlFor="Imperial">Imperial</label>
+      <input
+        type="radio"
+        id="Metric"
+        value={'Metric'}
+        checked={unit === 'Metric'}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+          setUnit(e.currentTarget.value);
+        }}
+      />
+      <label htmlFor="Metric">Metric</label>
       <button className="btn btn-primary m-2" onClick={handleSubmission}>
         Submit
       </button>
